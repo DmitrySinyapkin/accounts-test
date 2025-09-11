@@ -5,8 +5,19 @@ import ls from '../utils/localStorage'
 export const useAccountsStore = defineStore('accounts', () => {
     const accounts = ref<Account[]>(ls.getAccounts())
 
-    const addAccount = (account: Account) => {
-        accounts.value.push(account)
+    const addAccount = () => {
+        const emptyAccount: Account = {
+            marks: [],
+            type: 'LDAP',
+            login: '',
+            password: null
+        }
+        
+        accounts.value.push(emptyAccount)
+    }
+
+    const saveAccount = (account: Account) => {
+        accounts.value.forEach(a => account.login === a.login ? account : a)
         ls.updateAccounts(accounts.value)
     }
 
@@ -18,6 +29,7 @@ export const useAccountsStore = defineStore('accounts', () => {
     return {
         accounts,
         addAccount,
+        saveAccount,
         removeAccount
     }
 })
