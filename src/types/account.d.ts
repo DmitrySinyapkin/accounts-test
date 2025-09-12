@@ -2,7 +2,7 @@ interface Mark {
     text: string
 }
 
-type AccountType = typeof ACCOUNT_TYPES[number]
+type AccountType = 'LDAP' | 'Локальная'
 
 interface Account {
     id: string
