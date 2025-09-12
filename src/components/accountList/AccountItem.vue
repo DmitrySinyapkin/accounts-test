@@ -50,7 +50,7 @@ const onValidate = async () => {
     if (valid) {
         const newAccount = {
             ...values,
-            password: values.password || null,
+            password: values.password && values.type === 'Локальная' ? values.password : null,
             marks: stringToMarksArray(values.marks)
         }
         
@@ -61,23 +61,25 @@ const onValidate = async () => {
 
 <template>
     <form class="account-form">
-        <div>
+        <div class="marks">
             <InputText
                 v-model="marks"
+                :invalid="!!errors.marks"
                 fluid
                 @blur="onValidate"
             />
         </div>
-        <div>
+        <div class="type">
             <Select 
                 v-model="type" 
                 :options="typeOptions"
                 size="large"
+                fluid
                 @change="onValidate" 
             />
         </div>
-        <div class="credentials">
-            <div>
+        <div class="internal-flex">
+            <div class="internal-flex__item">
                 <InputText 
                     v-model="login" 
                     :invalid="!!errors.login"
@@ -85,11 +87,14 @@ const onValidate = async () => {
                     @blur="onValidate"
                 />
             </div>
-            <div v-if="type === 'Локальная'">
+            <div 
+                v-if="type === 'Локальная'"
+            >
                 <Password 
                     v-model="password"
                     :invalid="!!errors.password" 
                     toggle-mask
+                    fluid
                     @blur="onValidate"
                 />
             </div>
@@ -107,16 +112,7 @@ const onValidate = async () => {
 <style lang="scss" scoped>
 .account-form {
     width: 100%;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 10px;
-
-    .credentials {
-        width: 100%;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
+    @include list-grid;
+    margin: 10px 0;
 }
 </style>

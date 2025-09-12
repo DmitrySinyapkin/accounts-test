@@ -1,0 +1,17 @@
+@mixin list-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 16% 54% 10%;
+    gap: 10px;
+    align-items: center;
+
+    .internal-flex {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        &__item {
+            flex-grow: 1;
+        }
+    }
+}
