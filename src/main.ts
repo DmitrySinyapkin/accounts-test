@@ -5,8 +5,14 @@ import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import 'primeicons/primeicons.css'
 import Aura from '@primeuix/themes/aura'
-import Button from "primevue/button"
-import Message from 'primevue/message'
+import { 
+    Button,
+    Message,
+    DataView,
+    InputText,
+    Password,
+    Select
+} from 'primevue'
 
 const app = createApp(App)
 
@@ -19,5 +25,9 @@ app.use(PrimeVue, {
 })
 app.component('Button', Button)
 app.component('Message', Message)
+app.component('DataView', DataView)
+app.component('InputText', InputText)
+app.component('Password', Password)
+app.component('Select', Select)
 
 app.mount('#app')

@@ -1,6 +1,6 @@
 class LocalStorage {
     getAccounts() {
-        const accountsJson = localStorage.getItem('account')
+        const accountsJson = localStorage.getItem('accounts')
         return accountsJson ? JSON.parse(accountsJson) : []
     }
     updateAccounts(accounts: Account[]) {
