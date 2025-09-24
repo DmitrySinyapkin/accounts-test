@@ -1,3 +1,5 @@
+import type { Account } from "../types/account"
+
 class LocalStorage {
     getAccounts() {
         const accountsJson = localStorage.getItem('accounts')

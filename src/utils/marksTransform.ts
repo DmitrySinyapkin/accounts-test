@@ -1,3 +1,5 @@
+import type { Mark } from "../types/account"
+
 export const marksToString = (marks: Mark[]): string =>
     marks.reduce((str, mark, index, arr) => index === arr.length - 1 ? str + mark.text : str + `${mark.text}; `, '')
 

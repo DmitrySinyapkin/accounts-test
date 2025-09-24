@@ -3,6 +3,8 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup'
 import { marksToString, stringToMarksArray } from '../../utils/marksTransform';
 import { computed } from 'vue';
+import type { Account } from '../../types/account';
+import { AccountTypeOptions } from '../../constants/AccountTypeOptions';
 
 interface Props {
     data: Account
@@ -14,8 +16,6 @@ const emit = defineEmits<{
     save: [account: Account]
     remove: [id: string]
 }>()
-
-const typeOptions = ['LDAP' , 'Локальная']
 
 const initialValues = computed(() => ({
     ...props.data,
@@ -31,7 +31,7 @@ const { defineField, values, errors, validate } = useForm({
     password: yup
         .string()
         .when('type', {
-            is: (type: string) => type === 'Локальная',
+            is: (type: string) => type === AccountTypeOptions.local,
             then: () => yup.string().max(100).required(),
             otherwise: () => yup.string()
         }),
@@ -50,7 +50,7 @@ const onValidate = async () => {
     if (valid) {
         const newAccount = {
             ...values,
-            password: values.password && values.type === 'Локальная' ? values.password : null,
+            password: values.password && values.type === AccountTypeOptions.local ? values.password : null,
             marks: stringToMarksArray(values.marks)
         }
         
@@ -72,7 +72,7 @@ const onValidate = async () => {
         <div class="type">
             <Select 
                 v-model="type" 
-                :options="typeOptions"
+                :options="Object.values(AccountTypeOptions)"
                 size="large"
                 fluid
                 @change="onValidate" 
@@ -88,7 +88,7 @@ const onValidate = async () => {
                 />
             </div>
             <div 
-                v-if="type === 'Локальная'"
+                v-if="type === AccountTypeOptions.local"
             >
                 <Password 
                     v-model="password"
