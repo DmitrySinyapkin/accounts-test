@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { AccountTypeOptions } from '../../../constants/AccountTypeOptions'
+import { AccountTypeOptions } from '../../constants/AccountTypeOptions'
 
 export const schema = yup.object({
     marks: yup.string().max(50),

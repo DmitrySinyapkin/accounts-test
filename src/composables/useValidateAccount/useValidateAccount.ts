@@ -1,7 +1,7 @@
 import { useForm } from 'vee-validate';
 import { schema } from './schema';
-import type { Account } from '../../../types/account';
-import { transformAccountDataToFormValues, transformFormValuesToAccountData } from '../../../utils/accountDataTransform';
+import type { Account } from '../../types/account';
+import { transformAccountDataToFormValues, transformFormValuesToAccountData } from '../../utils/accountDataTransform';
 
 export function useValidateAccount(data: Account, callback: (data: Account) => void) {
     const { defineField, values, errors, validate } = useForm({

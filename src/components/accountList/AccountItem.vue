@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Account } from '../../types/account';
 import { AccountTypeOptions } from '../../constants/AccountTypeOptions';
-import { useValidateAccount } from '../composables/useValidateAccount/useValidateAccount';
+import { useValidateAccount } from '../../composables/useValidateAccount/useValidateAccount';
 
 interface Props {
     data: Account
