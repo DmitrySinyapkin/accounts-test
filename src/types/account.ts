@@ -13,3 +13,5 @@ export interface Account {
     login: string
     password: string | null
 }
+
+export type AccountFormValues = Omit<Account, 'marks'> & { marks: string }

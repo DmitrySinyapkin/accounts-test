@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate';
-import * as yup from 'yup'
-import { marksToString, stringToMarksArray } from '../../utils/marksTransform';
-import { computed } from 'vue';
 import type { Account } from '../../types/account';
 import { AccountTypeOptions } from '../../constants/AccountTypeOptions';
+import { useValidateAccount } from '../composables/useValidateAccount/useValidateAccount';
 
 interface Props {
     data: Account
@@ -17,46 +14,16 @@ const emit = defineEmits<{
     remove: [id: string]
 }>()
 
-const initialValues = computed(() => ({
-    ...props.data,
-    marks: marksToString(props.data.marks),
-    password: props.data.password || ''
-}))
+const saveAccount = (data: Account) => {
+    emit('save', data)
+}
 
-const { defineField, values, errors, validate } = useForm({
-  validationSchema: yup.object({
-    marks: yup.string().max(50),
-    type: yup.string(),
-    login: yup.string().max(100).required(),
-    password: yup
-        .string()
-        .when('type', {
-            is: (type: string) => type === AccountTypeOptions.local,
-            then: () => yup.string().max(100).required(),
-            otherwise: () => yup.string()
-        }),
-  }),
-  initialValues: initialValues.value
-})
+const { defineField, errors, onValidate } = useValidateAccount(props.data, saveAccount)
 
 const [marks] = defineField('marks')
 const [type] = defineField('type')
 const [login] = defineField('login')
 const [password] = defineField('password')
-
-const onValidate = async () => {
-    const { valid } = await validate()
-
-    if (valid) {
-        const newAccount = {
-            ...values,
-            password: values.password && values.type === AccountTypeOptions.local ? values.password : null,
-            marks: stringToMarksArray(values.marks)
-        }
-        
-        emit('save', newAccount)
-    }
-}
 </script>
 
 <template>
