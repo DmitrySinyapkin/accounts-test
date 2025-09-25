@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAccountsStore } from '../../stores/accounts';
-import AccountItem from './AccountItem.vue';
+import AccountItem from './accountItem/AccountItem.vue';
 import AccountListHeader from './AccountListHeader.vue';
 
 const accountsStore = useAccountsStore()

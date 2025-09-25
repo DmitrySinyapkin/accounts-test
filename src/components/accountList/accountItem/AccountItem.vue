@@ -1,18 +1,12 @@
 <script setup lang="ts">
-import type { Account } from '../../types/account';
-import { AccountTypeOptions } from '../../constants/AccountTypeOptions';
-import { useValidateAccount } from '../../composables/useValidateAccount/useValidateAccount';
-
-interface Props {
-    data: Account
-}
+import type { Props, Emits } from './types';
+import type { Account } from '../../../types/account';
+import { AccountTypeOptions } from '../../../constants/AccountTypeOptions';
+import { useValidateAccount } from '../../../composables/useValidateAccount/useValidateAccount';
 
 const props = defineProps<Props>()
 
-const emit = defineEmits<{
-    save: [account: Account]
-    remove: [id: string]
-}>()
+const emit = defineEmits<Emits>()
 
 const saveAccount = (data: Account) => {
     emit('save', data)
