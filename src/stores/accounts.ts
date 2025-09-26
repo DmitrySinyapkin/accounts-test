@@ -6,6 +6,7 @@ import type { Account } from "../types/account";
 import { AccountTypeOptions } from "../constants/AccountTypeOptions";
 
 export const useAccountsStore = defineStore('accounts', () => {
+ 
     const accounts = ref<Account[]>(ls.getAccounts())
 
     const addAccount = () => {
@@ -22,18 +23,22 @@ export const useAccountsStore = defineStore('accounts', () => {
 
     const saveAccount = (account: Account) => {
         accounts.value = accounts.value.map(a => account.id === a.id ? account : a)
-        ls.updateAccounts(accounts.value)
     }
 
     const removeAccount = (id: string) => {
-        accounts.value = accounts.value.filter(a => a.id !== id)
-        ls.updateAccounts(accounts.value)
+        accounts.value = accounts.value.filter(a => a.id !== id)     
+    }
+
+    const saveStoreToLocalStorage = () => {
+        const accountsToSave = accounts.value.filter(a => a.login)
+        ls.updateAccounts(accountsToSave)
     }
 
     return {
         accounts,
         addAccount,
         saveAccount,
-        removeAccount
+        removeAccount,
+        saveStoreToLocalStorage
     }
 })

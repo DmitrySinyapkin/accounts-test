@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted } from 'vue';
 import { useAccountsStore } from '../../stores/accounts';
 import AccountItem from './accountItem/AccountItem.vue';
 import AccountListHeader from './AccountListHeader.vue';
 
 const accountsStore = useAccountsStore()
+
+onMounted(() => {
+    window.addEventListener('beforeunload', accountsStore.saveStoreToLocalStorage)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('beforeunload', accountsStore.saveStoreToLocalStorage)
+})
 </script>
 
 <template>
