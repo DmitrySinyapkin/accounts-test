@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAccountsStorage } from '../../composables/useAccountsLS/useAccountsStorage';
+import { useAccountsStorage } from '../../composables/useAccountsStorage/useAccountsStorage';
 import AccountItem from './accountItem/AccountItem.vue';
 import AccountListHeader from './AccountListHeader.vue';
 
