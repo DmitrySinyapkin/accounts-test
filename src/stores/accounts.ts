@@ -7,7 +7,11 @@ import { AccountTypeOptions } from "../constants/AccountTypeOptions";
 
 export const useAccountsStore = defineStore('accounts', () => {
  
-    const accounts = ref<Account[]>(ls.getAccounts())
+    const accounts = ref<Account[]>([])
+
+    const getAccounts = () => {
+        accounts.value = ls.getAccounts()
+    }
 
     const addAccount = () => {
         const emptyAccount: Account = {
@@ -36,6 +40,7 @@ export const useAccountsStore = defineStore('accounts', () => {
 
     return {
         accounts,
+        getAccounts,
         addAccount,
         saveAccount,
         removeAccount,
