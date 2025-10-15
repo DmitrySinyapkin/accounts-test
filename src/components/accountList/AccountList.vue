@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useAccountsStorage } from '../../composables/useAccountsStorage/useAccountsStorage';
+import { useAccountsPersistedStore } from '../../composables/useAccountsPersistedStore/useAccountsPersistedStore';
 import AccountItem from './accountItem/AccountItem.vue';
 import AccountListHeader from './AccountListHeader.vue';
 
-const { accountsStore } = useAccountsStorage()
+const accountsStore = useAccountsPersistedStore()
 </script>
 
 <template>

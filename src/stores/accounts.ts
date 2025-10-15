@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import ls from '../utils/localStorage'
 import { v4 as uuidv4 } from "uuid";
 import type { Account } from "../types/account";
 import { AccountTypeOptions } from "../constants/AccountTypeOptions";
@@ -9,8 +8,8 @@ export const useAccountsStore = defineStore('accounts', () => {
  
     const accounts = ref<Account[]>([])
 
-    const getAccounts = () => {
-        accounts.value = ls.getAccounts()
+    const setAccounts = (accountsArr: Account[]) => {
+        accounts.value = accountsArr
     }
 
     const addAccount = () => {
@@ -33,17 +32,11 @@ export const useAccountsStore = defineStore('accounts', () => {
         accounts.value = accounts.value.filter(a => a.id !== id)     
     }
 
-    const saveStoreToLocalStorage = () => {
-        const accountsToSave = accounts.value.filter(a => a.login)
-        ls.updateAccounts(accountsToSave)
-    }
-
     return {
         accounts,
-        getAccounts,
+        setAccounts,
         addAccount,
         saveAccount,
-        removeAccount,
-        saveStoreToLocalStorage
+        removeAccount
     }
 })
